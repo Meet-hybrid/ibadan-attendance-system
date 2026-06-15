@@ -79,7 +79,7 @@ async def test_mark_attendance(client):
     })
     student_id = student_res.json()["id"]
     
-    # Test marking attendance
+# Test marking attendance
     response = await client.post("/attendance/", json={
         "student_id": student_id,
         "is_present": True
@@ -91,7 +91,6 @@ async def test_mark_attendance(client):
 
 @pytest.mark.asyncio
 async def test_attendance_report(client):
-    # Setup
     class_res = await client.post("/classrooms/", json={"class_name": "SS1"})
     class_id = class_res.json()["id"]
     student_res = await client.post("/students/", json={
@@ -102,7 +101,6 @@ async def test_attendance_report(client):
     student_id = student_res.json()["id"]
     await client.post("/attendance/", json={"student_id": student_id, "is_present": True})
     
-    # Test report
     response = await client.get("/attendance/report/")
     assert response.status_code == 200
     data = response.json()
